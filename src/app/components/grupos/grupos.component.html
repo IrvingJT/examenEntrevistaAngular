@@ -1,0 +1,27 @@
+<div class="example-container">
+    <h2>To do</h2>
+
+    <div cdkDropList #todoList="cdkDropList" [cdkDropListData]="grupos" class="example-list" (cdkDropListDropped)="drop($event)">
+        <div class="example-box" *ngFor="let item of grupos" cdkDrag>{{item.id+" "+item.name}}</div>
+    </div>
+</div>
+
+<div class="example-container">
+    <h2>Done</h2>
+
+    <div cdkDropList #doneList="cdkDropList" [cdkDropListData]="detalleGrupos" [cdkDropListConnectedTo]="[todoList]" class="example-list" (cdkDropListDropped)="drop($event)">
+
+        <div class="example-box" *ngFor="let item of tituloDetalleGrupos" cdkDrag>
+            <input type="checkbox" [id]="item.name" [value]="item.name" [name]="item.name" (change)="cambiarEstado($event.target.checked)" checked>
+            <label for="item.name"> {{item.name}} </label>
+        </div>
+
+        <div class="example-box" *ngFor="let item of detalleGrupos" cdkDrag>
+            <input type="checkbox" [id]="item.name" [value]="item.name" [name]="item.name" *ngIf="seleccionarTodo==true" checked>
+            <input type="checkbox" [id]="item.name" [value]="item.name" [name]="item.name" *ngIf="seleccionarTodo==false">
+            <label for="item.name"> {{item.name}} </label>
+        </div>
+
+    </div>
+
+</div>

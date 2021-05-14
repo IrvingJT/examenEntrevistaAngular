@@ -1,0 +1,55 @@
+<p>empleados works!</p>
+
+<div class="container">
+
+    <div class="row">
+        <div class="col">
+            <input #termino type="text" (keyup)="buscar(termino.value)" class="form-control" placeholder="buscar empleado">
+        </div>
+    </div>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">id</th>
+                <th scope="col">Name</th>
+                <th scope="col">Last</th>
+                <th scope="col">Birthday</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let empleado of empleados | paginate: { itemsPerPage: 10, currentPage: page }">
+
+                <td>{{empleado.id}}</td>
+                <td>{{empleado.name}}</td>
+                <td>{{empleado.last_name}}</td>
+                <td>{{empleado.birthday}}</td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+    <pagination-controls (pageChange)="page = $event" previousLabel="Anterior" nextLabel="Siguiente"></pagination-controls>
+
+    <hr>
+
+    <form [formGroup]="forma" (submit)="guardar()">
+        <div class="mb-4">
+            <label class="form-label">Nombre</label>
+            <input type="text" name="nombre" class="form-control" formControlName="nombre" placeholder="Nombre" [class.is-invalid]="nombreNoValido">
+
+        </div>
+        <div class="mb-4">
+            <label class="form-label">Apellidos</label>
+            <input type="text" name="apellidos" class="form-control" formControlName="apellidos" placeholder="Apellidos" [class.is-invalid]="apellidoNoValido">
+        </div>
+        <div class="mb-4">
+            <label for="exampleCheck1">Fecha</label>
+            <input type="text" name="fecha" class="form-control" formControlName="fecha" placeholder="aaaa/mm/dd" [class.is-invalid]="fechaNoValida">
+        </div>
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+
+
+</div>
